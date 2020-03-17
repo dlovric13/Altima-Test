@@ -34,6 +34,10 @@ export class TreeNodeModel {
     this._parent = value;
   }
 
+  /**
+   * Function that appends tree node to the list of children
+   * @param node object of the child
+   */
   addToChildren(node: TreeNodeModel) {
     if(this.validateCyclicConsistency(node.name)){
       this._children.push(node);
@@ -41,7 +45,10 @@ export class TreeNodeModel {
       throw "Cyclic error";
     }
   }
-
+/**
+ * Function that ensures cyclic consistancy of the new child inserts
+ * @param childName name of the child to be inserted 
+ */
   validateCyclicConsistency(childName): boolean{
     if(this.name != childName){
       if(this.parent){
@@ -51,7 +58,10 @@ export class TreeNodeModel {
     }
     return false;
   }
-
+/**
+ * Functions that replaces last element of the children with the parameter of the child
+ * @param child object to replace the last child
+ */
   replaceLastChild(child:TreeNodeModel){
     this.children[this.children.length-1] = child;
   }

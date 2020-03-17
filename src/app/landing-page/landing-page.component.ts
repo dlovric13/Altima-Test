@@ -16,6 +16,9 @@ export class LandingPageComponent {
   constructor(private alerts: AlertsService, private sanitizer: DomSanitizer) {
   }
 
+  /** This function is responsbile for reading the imported json file
+   * it also calls two functions buildTree() and generateHtmlTree()
+   */
   fileImported(event) {
     this.selectedFile = event.target.files[0];
     const fileReader = new FileReader();
@@ -34,7 +37,9 @@ export class LandingPageComponent {
       this.alerts.setMessage(error.type,'error');
     };
   }
-
+ /** This function is responsible for building the tree structure
+  * from the data from the json file. 
+  */
   buildTree(arrayNames) {
     try{
       let tree: TreeNodeModel[] = [];
@@ -73,7 +78,9 @@ export class LandingPageComponent {
       this.alerts.setMessage(e,'error');
     }
   }
-
+/**
+ *  Function that is checking if parent node already exists in the tree
+ */
   private findParent(parent_name, root: TreeNodeModel[]): TreeNodeModel {
     for (let node of root) {
       if (node.name == parent_name) {
@@ -84,7 +91,7 @@ export class LandingPageComponent {
     }
     return undefined;
   }
-
+/** This function generates the html output showing family tree structure */
   private generateHtmlTree(tree: TreeNodeModel[]){
     for(let node of tree){
       this.htmlTreeData += '<ul>';
